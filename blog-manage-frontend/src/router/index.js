@@ -54,19 +54,39 @@ export const constantRoutes = [
       meta: { title: '首页', icon: 'home' }
     }]
   },
-
+  {
+    path: '/michelin',
+    component: Layout,
+    redirect: '/michelin/manage',
+    name: 'blog',
+    meta: { title: '米其林管理', icon: 'category' },
+    children: [
+      {
+        path: '/restaurant',
+        name: 'Restaurant',
+        component: () => import('@/views/michelin/restaurant/index'),
+        meta: { title: '餐厅管理', icon: 'restaurant' }
+      },
+      {
+        path: '/food',
+        name: 'Food',
+        component: () => import('@/views/michelin/food/index'),
+        meta: { title: '美食管理', icon: 'food' }
+      }
+    ]
+  },
   {
     path: '/blog',
     component: Layout,
     redirect: '/blog/article',
     name: 'blog',
-    meta: { title: '博客管理', icon: 'blog' },
+    meta: { title: '分享管理', icon: 'blog' },
     children: [
       {
         path: '/article',
         name: 'Article',
         component: () => import('@/views/blog/article/index'),
-        meta: { title: '博文管理', icon: 'wblog' }
+        meta: { title: '文章管理', icon: 'wblog' }
       },
       {
         path: '/edit',
@@ -109,7 +129,6 @@ export const constantRoutes = [
       }
     ]
   },
-
   {
     path: '/log',
     component: Layout,

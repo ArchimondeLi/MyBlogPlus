@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pzhu.myblog.project.blog.mapper.MichelinRestaurantMapper">
+  <resultMap id="BaseResultMap" type="com.pzhu.myblog.project.blog.domain.MichelinRestaurant">
+    <!--@mbg.generated-->
+    <!--@Table michelin_restaurant-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="province" jdbcType="INTEGER" property="province" />
+    <result column="img1" jdbcType="VARCHAR" property="img1" />
+    <result column="img2" jdbcType="VARCHAR" property="img2" />
+    <result column="img3" jdbcType="VARCHAR" property="img3" />
+    <result column="longitude" jdbcType="DECIMAL" property="longitude" />
+    <result column="longitude" jdbcType="DECIMAL" property="longitude" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, name, description, img1, img2, img3, restaurant_id, create_time, update_time
+  </sql>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    FROM michelin_restaurant
+  </select>
+
+    <select id="selectByName" resultMap="BaseResultMap">
+      SELECT <include refid="Base_Column_List" />
+      FROM michelin_restaurant WHERE name = #{name}
+    </select>
+    <select id="selectPageVo" resultType="com.pzhu.myblog.project.blog.domain.MichelinRestaurant">
+      SELECT <include refid="Base_Column_List">
+    </include>
+      FROM michelin_restaurant
+    </select>
+</mapper>

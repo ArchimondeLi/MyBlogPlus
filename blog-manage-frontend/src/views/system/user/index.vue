@@ -106,13 +106,13 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
-            type="text"
+            type="success"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
           >修改</el-button>
           <el-button
             size="mini"
-            type="text"
+            type="danger"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
           >删除</el-button>

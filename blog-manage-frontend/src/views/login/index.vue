@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">博客管理系统</h3>
+        <h3 class="title">米其林美食分享平台管理系统</h3>
       </div>
 
       <el-form-item prop="username">
@@ -75,7 +75,7 @@ export default {
     return {
       loginForm: {
         username: 'admin',
-        password: '111111'
+        password: '123456'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -180,7 +180,7 @@ $light_gray:#eee;
 .login-container {
   min-height: 100%;
   width: 100%;
-  background: url("./timg.jpg") no-repeat;
+  background: url("./login.jpg") no-repeat;
   background-size: cover;
   overflow: hidden;
 

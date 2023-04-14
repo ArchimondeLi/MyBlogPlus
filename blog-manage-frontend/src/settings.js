@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '博客管理',
+  title: '米其林美食分享平台管理系统',
 
   /**
    * @type {boolean} true | false

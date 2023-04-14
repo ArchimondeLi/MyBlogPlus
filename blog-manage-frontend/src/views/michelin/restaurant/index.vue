@@ -43,23 +43,16 @@
         width="30%"
         center>
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
-          <el-form-item label="标签">
-            <el-input v-model="formInline.tagTitle" placeholder="标签"></el-input>
+          <el-form-item label="名称">
+            <el-input v-model="formInline.name" placeholder="名称"></el-input>
           </el-form-item>
-          <h2>关联的博客标题：</h2>
-          <div id="app">
-
-            <ul>
-              <li v-for="(item,index) in blogTitle">
-                {{ item }}
-
-              </li>
-            </ul>
-          </div>
+          <el-form-item label="描述">
+            <el-input type="textarea" v-model="formInline.description" placeholder="描述"></el-input>
+          </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
-    <el-button type="primary" @click="centerDialogVisible = false">返 回</el-button>
-  </span>
+          <el-button type="primary" @click="centerDialogVisible = false">返 回</el-button>
+        </span>
       </el-dialog>
     </div>
 
@@ -71,13 +64,16 @@
         width="30%"
         center>
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
-          <el-form-item label="标签">
-            <el-input v-model="formInline.tagTitle" placeholder="标签"></el-input>
+          <el-form-item label="名称">
+            <el-input v-model="formInline.name" placeholder="名称"></el-input>
+          </el-form-item>
+          <el-form-item label="描述">
+            <el-input type="textarea" v-model="formInline.description" placeholder="描述"></el-input>
           </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
     <el-button @click="addDialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="addTag()">添 加</el-button>
+    <el-button type="primary" @click="addFood()">添 加</el-button>
   </span>
       </el-dialog>
     </div>
@@ -90,14 +86,17 @@
         width="30%"
         center>
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
-          <el-form-item label="标签">
-            <el-input v-model="formInline.tagTitle" placeholder="标签"></el-input>
+          <el-form-item label="名称">
+            <el-input v-model="formInline.name" placeholder="名称"></el-input>
+          </el-form-item>
+          <el-form-item label="描述">
+            <el-input type="textarea" v-model="formInline.description" placeholder="描述"></el-input>
           </el-form-item>
           <el-input type="hidden" v-model="id" placeholder="id"></el-input>
         </el-form>
         <span slot="footer" class="dialog-footer">
     <el-button @click="editDialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="editTag(id)">修 改</el-button>
+    <el-button type="primary" @click="editFood(id)">修 改</el-button>
   </span>
       </el-dialog>
     </div>
@@ -105,22 +104,19 @@
 </template>
 
 <script>
-import {articleList} from '@/api/article'
-import {deleteArticle} from '../../../api/article'
-import {CategoryDetail, CategoryList, createCategory, deleteCategory, updateCategory} from '../../../api/category'
-import {createTag, deleteTag, TagDetail, TagList, updateTag} from '../../../api/tag'
+import { FoodDetail, FoodList, createFood, deleteFood, updateFood } from '../../../api/food'
+
 
 export default {
-  name: 'Category',
+  name: 'Food',
   data() {
     return {
       centerDialogVisible: false,
       addDialogVisible: false,
       editDialogVisible: false,
       formInline: {
-        tagTitle: '',
+        name: '',
       },
-      blogTitle: [],
       id: '',
       tablePage: {
         total: 0,
@@ -141,17 +137,15 @@ export default {
         }
       },
       tableColumn: [
-        {type: 'checkbox', width: 50},
-        {type: 'seq', title: '序号', width: 60},
-        {field: 'createTime', title: '日期', remoteSort: true,},
-        {field: 'tagTitle', title: '标签', showOverflow: true},
-        {field: 'count', title: '关联博客数',},
-        {
-          field: 'operation', title: '操作', slots: {
+        { type: 'checkbox', width: 50 },
+        { type: 'seq', title:'序号',width: 60 },
+        { field: 'createTime', title: '日期',remoteSort: true ,},
+        { field: 'name', title: '名称',showOverflow: true},
+        { field: 'description', title: '描述', },
+        {field:'operation',title:'操作',slots: {
             // 对应自定义插槽的名称
             default: 'name_default'
-          }
-        }
+          }}
       ]
     }
   },
@@ -161,7 +155,7 @@ export default {
   methods: {
     findList() {
       const that = this;
-      TagList(this.tablePage.currentPage, this.tablePage.pageSize).then(function (response) {
+      FoodList(this.tablePage.currentPage, this.tablePage.pageSize).then(function (response) {
         that.tableData = response.data.records
         that.tablePage.total = response.data.total
       }, function (err) {
@@ -171,7 +165,7 @@ export default {
       })
     },
     showDetailEvent(row, column) {
-      TagDetail(row.id).then((res) => {
+      FoodDetail(row.id).then((res) => {
         const that = this;
         that.formInline = res.data;
         that.blogTitle = res.data.blogTitle;
@@ -179,7 +173,7 @@ export default {
       this.centerDialogVisible = true;
     },
     editDetailEvent(row, column) {
-      TagDetail(row.id).then((res) => {
+      FoodDetail(row.id).then((res) => {
         const that = this;
         that.formInline = res.data;
         that.id = row.id;
@@ -198,8 +192,8 @@ export default {
     create() {
       this.addDialogVisible = true;
     },
-    addTag() {
-      createTag(this.formInline).then((res) => {
+    addFood() {
+      createFood(this.formInline).then((res) => {
         if (res.code = 20000) {
           this.$message({
             type: 'success',
@@ -217,8 +211,8 @@ export default {
         }
       })
     },
-    editTag(id) {
-      updateTag(this.formInline, id).then((res) => {
+    editFood(id) {
+      updateFood(this.formInline, id).then((res) => {
         if (res.code = 20000) {
           this.$message({
             type: 'success',
@@ -237,12 +231,12 @@ export default {
       })
     },
     deleteById(row) {
-      this.$confirm('此操作将永久删除标签, 是否继续?', '提示', {
+      this.$confirm('此操作将永久删除食品, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteTag(row.id).then((res) => {
+        deleteFood(row.id).then((res) => {
           if (res.code = 20000) {
             this.$message({
               type: 'success',

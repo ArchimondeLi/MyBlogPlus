@@ -36,11 +36,12 @@ spring:
       # redis 配置
   redis:
         # 地址
-        host: localhost
+        host: 192.168.251.218
         # 端口，默认为6379
         port: 6379
         # 连接超时时间
         timeout: 10s
+        password: egame218_@
         lettuce:
           pool:
             # 连接池中的最小空闲连接
